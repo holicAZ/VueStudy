@@ -11,7 +11,7 @@
   
   <Discount :discount_num = "discount_num"/>
 
-  <button @click="priceSort"> 가격순정렬 </button>
+  <button :style="스타일" @click="priceSort"> 가격순정렬 </button>
   <button @click="rePriceSort"> 가격역순정렬 </button>
   <button @click="nameSort"> 이름순정렬 </button>
   <button @click="sortBack"> 되돌리기 </button>

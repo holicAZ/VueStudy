@@ -1,8 +1,8 @@
 <template>
   <div  v-for="(글,i) in 블로그글" :key="i">
-      <router-link to="/detail">
-        <h5>{{글.title}}</h5>
-      </router-link>
+      
+      <h5 @click="$router.push('/detail/'+i)">{{글.title}}</h5>
+      
       <p>{{글.content}}</p>
   </div>
 </template>

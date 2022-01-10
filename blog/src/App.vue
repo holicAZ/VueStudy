@@ -38,9 +38,11 @@
 
 <router-link to="/list">리스트페이지</router-link> <br>
 <router-link to="/">홈페이지</router-link>
-<router-view :블로그글="블로그글"></router-view>
+<div class="mt-4">
+  <router-view :블로그글="블로그글"></router-view>
+</div>
 
-<!-- <List :블로그글="글" v-for="(글,i) in 블로그글" :key="i"/> -->
+<!-- <List :블로그글=  "글" v-for="(글,i) in 블로그글" :key="i"/> -->
 
 </template>
 

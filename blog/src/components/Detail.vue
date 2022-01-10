@@ -1,6 +1,7 @@
 <template>
-  <h5>{{블로그글[0].content}}</h5>
-  <p>무슨무슨 내용</p>
+  <h5>{{블로그글[$route.params.id].title}}</h5>
+  <p>{{블로그글[$route.params.id].content}}</p>
+  <router-view></router-view>
 </template>
 
 <script>

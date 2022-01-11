@@ -6,19 +6,17 @@
     
     <!-- 필터선택페이지 -->
     <div v-if="step == 1">
-        <div class="upload-image" :style="{backgroundImage:'url('+image_url +')'}"></div>
+        <div :class="selectFilter + ' upload-image'" :style="{backgroundImage:'url('+image_url +')'}"></div>
         <div class="filters">
-            <div class="filter-1"></div>
-            <div class="filter-1"></div>
-            <div class="filter-1"></div>
-            <div class="filter-1"></div>
-            <div class="filter-1"></div>
+            <FilterBox :filterdata="filter_data[i]" :image_url="image_url" v-for="(filter,i) in filter_data" :key="i">
+                <template v-slot:a> {{filter_data[i]}} </template>
+            </FilterBox>
         </div>
     </div>
 
     <!-- 글작성페이지 -->
     <div v-if="step==2">
-        <div class="upload-image" :style="{backgroundImage:'url('+image_url +')'}"></div>
+        <div :class="selectFilter + ' upload-image'" :style="{backgroundImage:'url('+image_url +')'}"></div>
         <div class="write">
             <textarea class="write-box" @input="$emit('text',$event.target.value)" >write!</textarea>
         </div>
@@ -27,15 +25,20 @@
 </template>
 
 <script>
-import Post from '../components/Post'
+import Post from '../components/Post.vue'
+import FilterBox from '../components/FilterBox.vue'
+import filterdata from '../assets/filter_data.js'
 export default {
     data(){
         return{
             text:"",
+            filter_data : filterdata,
+            selectFilter : "",
         }
     },
     components: {
         Post,
+        FilterBox,
     },
     props: {
         insta_data: Array,
@@ -43,6 +46,12 @@ export default {
         image_url: String,
         publish_check: Boolean,
     },
+    mounted(){
+        this.emitter.on('selectedFilter', (a)=>{
+            this.selectFilter = a;
+        })
+    }
+    
 }
 </script>
 

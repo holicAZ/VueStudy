@@ -36,7 +36,16 @@ export default {
       step: 0,
       image_url : "",
       new_content : "",
+      selectFilter : "",
     }
+  },
+  mounted(){
+    this.emitter.on('작명', (a)=> {
+      console.log(a);
+    });
+    this.emitter.on('selectedFilter', (a)=>{
+      this.selectFilter = a;
+    })
   },
   components: {
     Container:Container,
@@ -51,7 +60,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.new_content,
-        filter: "perpetua"
+        filter: this.selectFilter,
       };
       this.insta_data.unshift(new_data); // unshift 맨 왼쪽(처음)에 자료 추가
       this.step = 0;
@@ -76,7 +85,8 @@ export default {
       this.step++;
       this.image_url = url;
     },
-  }
+  },
+  
 }
 </script>
 

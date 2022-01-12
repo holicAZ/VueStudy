@@ -1,12 +1,11 @@
 import {createStore } from 'vuex'
-
+import insta_data from './assets/insta_data.js'
 const store = createStore({
     state(){
         return {
            name : 'kim',
            age : 20,
-           likes : 30,
-           is_like : false,
+           ins : insta_data,
         }
     },
     mutations : {
@@ -16,14 +15,14 @@ const store = createStore({
         ageChange(state, data){
             state.age+=data;
         },
-        likePlus(state){
-            if(state.is_like == false){
-                state.likes++;
-                state.is_like = true;
+        likePlus(state,num){
+            if(state.ins[num].liked === false){
+                state.ins[num].likes++;
+                state.ins[num].liked = true;
             }
             else{
-                state.likes--;
-                state.is_like = false;
+                state.ins[num].likes--;
+                state.ins[num].liked = false;
             }
         }
 

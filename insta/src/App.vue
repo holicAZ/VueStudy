@@ -61,7 +61,7 @@ export default {
         name: "Kim Hyun",
         userImage: "https://placeimg.com/100/100/arch",
         postImage: this.image_url,
-        likes: 36,
+        likes: 0,
         date: "May 15",
         liked: false,
         content: this.new_content,

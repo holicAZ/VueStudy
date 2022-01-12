@@ -9,8 +9,13 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+  
+  <!-- <h4>{{ $store.state.name }}</h4>
+  <button @click="$store.commit('nameChange')">버튼</button>
+  <h4>{{ $store.state.age }}</h4>
+  <button @click="$store.commit('ageChange',10)"> 버튼 </button> -->
 
-  <Container @text="new_content = $event" :insta_data="insta_data" :step="step" :image_url="image_url"/>
+  <Container new_content = $event :insta_data="insta_data" :step="step" :image_url="image_url"/>
   <button @click="more"> 더보기 </button>
 
   <div class="footer">

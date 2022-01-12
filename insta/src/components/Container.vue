@@ -22,12 +22,17 @@
         </div>
     </div>
   </div>
+
+  <div v-if="step == 3">
+      <MyPage/>
+  </div>
 </template>
 
 <script>
 import Post from '../components/Post.vue'
 import FilterBox from '../components/FilterBox.vue'
 import filterdata from '../assets/filter_data.js'
+import MyPage from './MyPage.vue'
 export default {
     data(){
         return{
@@ -39,6 +44,7 @@ export default {
     components: {
         Post,
         FilterBox,
+        MyPage,
     },
     props: {
         insta_data: Array,

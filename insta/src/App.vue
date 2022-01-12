@@ -14,6 +14,9 @@
   <button @click="$store.commit('nameChange')">버튼</button>
   <h4>{{ $store.state.age }}</h4>
   <button @click="$store.commit('ageChange',10)"> 버튼 </button> -->
+  <p>{{more}}</p>
+  <button @click="$store.dispatch('getData')">더보기</button>
+
 
   <Container new_content = $event :insta_data="insta_data" :step="step" :image_url="image_url"/>
   <button @click="more"> 더보기 </button>
@@ -32,13 +35,14 @@
 import Container from './components/Container.vue';
 import insta_data from './assets/insta_data.js';
 import axios from 'axios';
+import {mapMutations, mapState} from 'vuex';
 export default {
   name: 'App',
   data(){
     return{
       insta_data : insta_data,
       more_cnt : 0,
-      step: 0,
+      step: 3,
       image_url : "",
       new_content : "",
       selectFilter : "",
@@ -55,7 +59,13 @@ export default {
   components: {
     Container:Container,
   },
+  computed: {
+    ...mapState(['name','age','likes','more']),
+
+  },
   methods: {
+    ...mapMutations(['setMore']),
+    
     publish(){
       var new_data = {
         name: "Kim Hyun",

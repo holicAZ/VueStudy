@@ -17,7 +17,7 @@ const store = createStore({
             state.age+=data;
         },
         likePlus(state){
-            if(state.is_like === false){
+            if(state.is_like == false){
                 state.likes++;
                 state.is_like = true;
             }

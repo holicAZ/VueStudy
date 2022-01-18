@@ -1,38 +1,150 @@
 <template>
-<div class="logo_frame">
+<!-- <div class="logo_frame">
   <img class="logo" :src="tittle_img"/>
 </div>
-<v-container id="main">
-<div v-scroll:#main="handleScroll" class="scene" >
+<div class="scene" >
   <h1 class="tittle">Dazzling Moment</h1>
-</div>
-</v-container>
-<div>
-  2
-</div>
+</div> -->
+
+<div id="app">
+    <div class="sections-menu">
+      <span
+         class="menu-point"
+         v-bind:class="{active: activeSection == index}"
+         v-on:click="scrollToSection(index)"
+         v-for="(offset, index) in offsets" :key="index">
+      </span>
+    </div>
+    <section class="fullpage blue">
+      <h1>Vue.js Fullpage Scroll</h1>
+      <p>by <a href="https://webdeasy.de/?referer=cp-NVOEBL" target="_blank">WebDEasy</a></p>
+    </section>
+    <section class="fullpage black">
+      <h1>Section 2</h1>
+      <p>made with <a href="https://vuejs.org/" target="_blank">Vue.js</a></p>
+    </section>
+    <section class="fullpage red">
+      <h1>Section 3</h1>
+      <p>works on <b>desktop & mobile</b></p>
+    </section>
+    <section class="fullpage green">
+      <h1>Section 4</h1>
+      <p>Tutorial <a href="https://webdeasy.de/en/programming-vue-js-fullpage-scroll/?referer=cp-NVOEBL" target="_blank">here</a></p>
+    </section>
+  </div>
 </template>
 
 <script>
-import tittle_img_url from "./assets/image/damologo@2x.png"
 export default {
   name: 'App',
   data(){
     return{
-      tittle_img : tittle_img_url,
-      scrollPostion: 0,
+      inMove: false,
+      activeSection: 0,
+      offsets: [],
+      touchStartY: 0,
     }
   },
-  components: {
+  created() {
+    this.$nextTick(function(){
+      this.calculateSectionOffsets();
+    })
     
+    window.addEventListener('DOMMouseScroll', this.handleMouseWheelDOM);  // Mozilla Firefox
+    window.addEventListener('mousewheel', this.handleMouseWheel, { passive: false }); // Other browsers
+    
+    window.addEventListener('touchstart', this.touchStart, { passive: false }); // mobile devices
+    window.addEventListener('touchmove', this.touchMove, { passive: false }); // mobile devices
+  },
+  unmounted() {
+    window.removeEventListener('mousewheel', this.handleMouseWheel, { passive: false });  // Other browsers
+    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
+    
+    window.removeEventListener('touchstart', this.touchStart); // mobile devices
+    window.removeEventListener('touchmove', this.touchMove); // mobile devices
   },
   methods: {
-    handleScroll(e){ 
-      this.scrollPostion = e.target.scrollTop;
-       if(this.scrollPosition > 100){
-          console.log("UP") 
-       } 
-       else { console.log("DOWN") } }
-  }
+    calculateSectionOffsets() {
+      let sections = document.getElementsByTagName('section');
+      let length = sections.length;
+      
+      for(let i = 0; i < length; i++) {
+        let sectionOffset = sections[i].offsetTop;
+        this.offsets.push(sectionOffset);
+      }
+    },
+    handleMouseWheel(e) {
+      
+      if (e.wheelDelta < 30 && !this.inMove) {
+        this.moveUp();
+      } else if (e.wheelDelta > 30 && !this.inMove) {
+        this.moveDown();
+      }
+        
+      e.preventDefault();
+      return false;
+    },
+    handleMouseWheelDOM(e) {
+      
+      if (e.detail > 0 && !this.inMove) {
+        this.moveUp();
+      } else if (e.detail < 0 && !this.inMove) {
+        this.moveDown();
+      }
+      
+      return false;
+    },
+    moveDown() {
+      this.inMove = true;
+      this.activeSection--;
+        
+      if(this.activeSection < 0) this.activeSection = this.offsets.length - 1;
+        
+      this.scrollToSection(this.activeSection, true);
+    },
+    moveUp() {
+      this.inMove = true;
+      this.activeSection++;
+        
+      if(this.activeSection > this.offsets.length - 1) this.activeSection = 0;
+        
+      this.scrollToSection(this.activeSection, true);
+    },
+    scrollToSection (id, force = false) {
+      if(this.inMove && !force) return false;
+      
+      this.activeSection = id;
+      this.inMove = true;
+      
+      document.getElementsByTagName('section')[id].scrollIntoView({behavior: 'smooth'});
+      
+      setTimeout(() => {
+        this.inMove = false;
+      }, 400);
+      
+    },
+    touchStart(e) {
+      e.preventDefault();
+      
+      this.touchStartY = e.touches[0].clientY;
+    },
+    touchMove(e) {
+      if(this.inMove) return false;
+      e.preventDefault();
+      
+      const currentY = e.touches[0].clientY;
+      
+      if(this.touchStartY < currentY) {
+        this.moveDown();
+      } else {
+        this.moveUp();
+      }
+      
+      this.touchStartY = 0;
+      return false;
+    }
+  },
+  
 }
 </script>
 
@@ -42,77 +154,93 @@ img{
   image-rendering: crisp-edges;
   image-rendering: pixelated;
 }
-@font-face {
-  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/Anders.ttf');
-  font-family: test;
-}
-.tittle{
-  margin-top: -70px;
-  font-size: 12em;
-}
-html,body {
-  font-size: 62.5%;
-  height: 100%;
+body {
+  margin: 0;
+  color: #FFF;
+  font-family: Helvetica, arial, sans-serif;
   overflow: hidden;
-  background-color: #f5dce1;
 }
-.logo_frame{
-  margin-top: -50px;
-  margin-bottom: 10px;
+
+h2 {
+  position: fixed;
 }
-.logo{
-  transform:scale(2.0); 
-  width: 20%;
-  height: 20vh;
-  
-}
-.scene {
-  position: relative;
-  width: 100%;
+
+.fullpage {
   height: 100vh;
-  background-image: url("./assets/image/bg.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 83%;
-  padding: 20rem;
-  background-position: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
 h1 {
-  position: relative;
-  font-size: 8rem;
-  text-transform: uppercase;
-  font-family: test;
-  color: #fff;
-  z-index: 10;
-}
-.magic {
-  z-index: 5;
-  position: absolute;
-  top: calc(50% - 10rem);
-  left: calc(50% - 10rem);
-  width: 20rem;
-  height: 20rem;
-  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/hover-reveal.jpg') 50% 50% no-repeat fixed;
-  background-size: cover;
-  border-radius: 50%;
-}
-.check-out {
-  z-index: 100;
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  color: #fff;
-  font-family: test;
-  
-  
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 6em;
+  margin: 0;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 0 1rem;
 }
+
+p {
+  font-size: 1em;
+}
+
+.fullpage a {
+  text-decoration: none;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 5px 10px;
+  color: #FFF;
+  margin-left: 5px;
+}
+
+.red {
+  background-color: #ab4545;
+}
+
+section.black {
+  background-color: #000;
+}
+
+.blue {
+  background-color: #237ad4;
+}
+
+.green {
+  background-color: #68c368;
+}
+
+h1.black {
+  color: #000;
+}
+
+.sections-menu {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sections-menu .menu-point {
+  width: 10px;
+  height: 10px;
+  background-color: #FFF;
+  display: block;
+  margin: 1rem 0;
+  opacity: .6;
+  transition: .4s ease all;
+  cursor: pointer;
+}
+
+.sections-menu .menu-point.active {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+@media screen and (max-width: 1200px) {
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
 </style>

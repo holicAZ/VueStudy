@@ -16,8 +16,10 @@
       </span>
     </div>
     <section class="fullpage blue">
-      <h1>Vue.js Fullpage Scroll</h1>
-      <p>by <a href="https://webdeasy.de/?referer=cp-NVOEBL" target="_blank">WebDEasy</a></p>
+      <div class="container">
+        <h1 class="tittle">DAMO</h1>
+        <span class="sub_tittle" >:</span> <span style="color:#f93f5b">Da</span><span>zzling</span> <span style="color:#f93f5b">Mo</span><span>ments</span>
+      </div>
     </section>
     <section class="fullpage black">
       <h1>Section 2</h1>
@@ -170,17 +172,27 @@ h2 {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
 }
 
 h1 {
-  font-size: 6em;
+  font-size: 5em;
   margin: 0;
-  text-align: center;
+  text-align:left;
   padding: 0 1rem;
 }
-
+.tittle{
+  
+}
+.sub_tittle{
+  font-size: 2em;
+  padding: 0 1rem;
+}
+span{
+  font-size: 1.8em;
+  color: #f79b5d;
+}
 p {
   font-size: 1em;
 }
@@ -195,7 +207,7 @@ p {
 }
 
 .red {
-  background-color: #ab4545;
+  
 }
 
 section.black {
@@ -203,7 +215,21 @@ section.black {
 }
 
 .blue {
-  background-color: #237ad4;
+   position: relative;
+   color: #f93f5b;
+}
+.blue:after{  
+  content : "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('./assets/image/cake1.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  opacity : 0.3;
+  z-index: -10;
 }
 
 .green {
@@ -219,6 +245,7 @@ h1.black {
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 1;
 }
 
 .sections-menu .menu-point {
@@ -230,6 +257,7 @@ h1.black {
   opacity: .6;
   transition: .4s ease all;
   cursor: pointer;
+  
 }
 
 .sections-menu .menu-point.active {
@@ -237,10 +265,10 @@ h1.black {
   transform: scale(1.5);
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   h1 {
     font-size: 2.5em;
   }
-}
+} */
 
 </style>

@@ -17,13 +17,27 @@
     </div>
     <section class="fullpage blue">
       <div class="container">
-        <h1 class="tittle">DAMO</h1>
-        <span class="sub_tittle" >:</span> <span style="color:#f93f5b">Da</span><span>zzling</span> <span style="color:#f93f5b">Mo</span><span>ments</span>
+        <img class="logo" :src=logo_src alt="">
+        <div class="content">
+          <span style="color: #fff; text-shadow: 4px 3px 2px #000000"> "소중한 사람과 빛나는 시간을"</span>
+        </div>
+        <!-- <h1 class="tittle">DAMO</h1>
+        <span class="sub_tittle">:</span> <span style="color:#f93f5b">Da</span><span>zzling</span> <span style="color:#f93f5b">Mo</span><span>ments</span> -->
       </div>
     </section>
     <section class="fullpage black">
-      <h1>Section 2</h1>
-      <p>made with <a href="https://vuejs.org/" target="_blank">Vue.js</a></p>
+      <div class="container">
+        <div class="row" style=" hegiht: 500px;">
+          <div class="col-md-5 mt-5">
+            <img class="main_img" :src=main_src alt="">
+          </div>
+          <div class="col-md-7 align-self-center">
+            <span class="second_page">레터링 케이크의 비교와&nbsp;</span><span class="second_page"> 주문을&nbsp;</span> <span class="second_impect">편리</span><span class="second_page">하게 !</span>
+          </div>
+        </div>
+      
+      </div>
+      
     </section>
     <section class="fullpage red">
       <h1>Section 3</h1>
@@ -37,10 +51,14 @@
 </template>
 
 <script>
+import logo_src from './assets/image/damologo.png'
+import main_src from './assets/image/mainpage.png'
 export default {
   name: 'App',
   data(){
     return{
+      logo_src : logo_src,
+      main_src: main_src,
       inMove: false,
       activeSection: 0,
       offsets: [],
@@ -151,10 +169,17 @@ export default {
 </script>
 
 <style>
-img{
-  image-rendering: auto;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
+@font-face {
+    font-family: 'Eulyoo1945-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 body {
   margin: 0;
@@ -182,12 +207,62 @@ h1 {
   text-align:left;
   padding: 0 1rem;
 }
-.tittle{
+.logo{
+  display: inline-block;
+  width: 40rem;
+  height: 30rem;
+  transform: scale(1.5);
+  vertical-align: middle;
+  margin-right: 0;
+}
+.cotainer{
+  display: flex;
+}
+.content{
+  word-break: keep-all;
+  display: inline-block;
+  width: auto;
+  margin-left: 5em;
+  font-family: 'Eulyoo1945-SemiBold';
+  font-size: 2rem;
+  transform: scale(1.3);
   
+}
+.second_image_container{
+  display: flex;
+}
+.main_img{
+  width: 18em;
+  display: inline-block;
+  margin-right: 6em;
+  margin-bottom: 3em;
+  vertical-align: center;
+  border-radius: 2.1rem;
+  box-shadow: 2px 2px 2px rgb(75, 56, 56);
 }
 .sub_tittle{
   font-size: 2em;
   padding: 0 1rem;
+}
+.second_page{
+  word-break:keep-all;
+  display: inline-block;
+  font-family: "SBAggroB";
+  font-size: 3em;
+  color: #FFF;
+  text-shadow: 2px 2px 1px #000000
+}
+.second_impect{
+  word-break:keep-all;
+  font-family: "SBAggroB";
+  font-size: 3em;
+  display: inline;
+  color: #f79b5d;
+  text-emphasis-style: dot;
+  text-emphasis-position: over left;
+  -webkit-text-emphasis-style: dot;
+  -webkit-text-emphasis-position: over;
+  text-shadow: 2px 2px 1px #000000;
 }
 span{
   font-size: 1.8em;
@@ -207,11 +282,13 @@ p {
 }
 
 .red {
-  
+  background-color:#f93f5b;
+  opacity: .9;
 }
 
 section.black {
-  background-color: #000;
+  background-color:#f93f5b;
+  opacity: .9;
 }
 
 .blue {
@@ -224,11 +301,11 @@ section.black {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url('./assets/image/cake1.jpg');
+  background-image: url('./assets/image/cake6.jpg');
   background-size: cover;
   width: 100%;
   height: 100%;
-  opacity : 0.3;
+  opacity : 0.79;
   z-index: -10;
 }
 
@@ -251,6 +328,7 @@ h1.black {
 .sections-menu .menu-point {
   width: 10px;
   height: 10px;
+  border-radius: 5px;
   background-color: #FFF;
   display: block;
   margin: 1rem 0;

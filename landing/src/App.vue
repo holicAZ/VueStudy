@@ -27,21 +27,30 @@
     </section>
     <section class="fullpage black">
       <div class="container">
-        <div class="row" style=" hegiht: 500px;">
-          <div class="col-md-5 mt-5">
+        <div class="row " style="margin-left:24px;">
+          <div class="col-md-5 mt-5" >
             <img class="main_img" :src=main_src alt="">
           </div>
           <div class="col-md-7 align-self-center">
-            <span class="second_page">레터링 케이크의 비교와&nbsp;</span><span class="second_page"> 주문을&nbsp;</span> <span class="second_impect">편리</span><span class="second_page">하게 !</span>
+            <img class="main_text" :src=main_text alt="">
+            <!-- <div class="row">
+              <div class="col-md-12">
+                <span class="second_page">레터링 케이크의 비교와&nbsp;</span><span class="second_page"> 주문을&nbsp;</span> <span class="second_impect">편리</span><span class="second_page">하게 !</span>
+              </div>
+            </div> -->
           </div>
+          
         </div>
       
       </div>
       
     </section>
     <section class="fullpage red">
-      <h1>Section 3</h1>
-      <p>works on <b>desktop & mobile</b></p>
+      <div>
+      <Flicking :options="{ align:'prev', circular: true,}" style="width: 30em">
+        <img class="panel" :src=third_img v-for="third_img in third_img_src" :key="third_img" alt="">
+      </Flicking>
+      </div>
     </section>
     <section class="fullpage green">
       <h1>Section 4</h1>
@@ -51,19 +60,30 @@
 </template>
 
 <script>
+import Flicking from "@egjs/vue3-flicking";
 import logo_src from './assets/image/damologo.png'
 import main_src from './assets/image/mainpage.png'
+import main_text from './assets/image/main_text.png'
+import third_img01_src from './assets/image/detailpage.png'
+import third_img02_src from './assets/image/review.png'
+import third_img03_src from './assets/image/faq.png'
+import third_img04_src from './assets/image/dmpage.png'
 export default {
   name: 'App',
   data(){
     return{
       logo_src : logo_src,
       main_src: main_src,
+      main_text: main_text,
+      third_img_src: [third_img01_src, third_img02_src, third_img03_src, third_img04_src],
       inMove: false,
       activeSection: 0,
       offsets: [],
       touchStartY: 0,
     }
+  },
+  components: {
+    Flicking : Flicking,
   },
   created() {
     this.$nextTick(function(){
@@ -214,6 +234,7 @@ h1 {
   transform: scale(1.5);
   vertical-align: middle;
   margin-right: 0;
+  
 }
 .cotainer{
   display: flex;
@@ -232,13 +253,16 @@ h1 {
   display: flex;
 }
 .main_img{
-  width: 18em;
+  width: 19em;
   display: inline-block;
-  margin-right: 6em;
-  margin-bottom: 3em;
+  margin-left: 2em;
+  margin-right: 4em;
   vertical-align: center;
   border-radius: 2.1rem;
   box-shadow: 2px 2px 2px rgb(75, 56, 56);
+}
+.main_text{
+  width:40em;
 }
 .sub_tittle{
   font-size: 2em;
@@ -248,14 +272,14 @@ h1 {
   word-break:keep-all;
   display: inline-block;
   font-family: "SBAggroB";
-  font-size: 3em;
+  font-size: 3.7em;
   color: #FFF;
-  text-shadow: 2px 2px 1px #000000
+  text-shadow: 2px 2px 1px #f79b5d
 }
 .second_impect{
   word-break:keep-all;
   font-family: "SBAggroB";
-  font-size: 3em;
+  font-size: 3.7em;
   display: inline;
   color: #f79b5d;
   text-emphasis-style: dot;
@@ -263,6 +287,12 @@ h1 {
   -webkit-text-emphasis-style: dot;
   -webkit-text-emphasis-position: over;
   text-shadow: 2px 2px 1px #000000;
+}
+.panel{
+  width: 19em;
+  display: inline-block;
+  margin-left: 2em;
+  margin-right: 4em;
 }
 span{
   font-size: 1.8em;
@@ -343,10 +373,17 @@ h1.black {
   transform: scale(1.5);
 }
 
-/* @media screen and (max-width: 1200px) {
+ @media screen and (max-width: 992px) {
   h1 {
     font-size: 2.5em;
   }
-} */
+  .main_img{
+    width: 15em;
+  }
+  .main_text{
+    margin-left: 2em;
+    width: 16em;
+  }
+} 
 
 </style>

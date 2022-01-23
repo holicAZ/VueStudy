@@ -29,27 +29,37 @@
       <div class="container">
         <div class="row " style="margin-left:24px;">
           <div class="col-md-5 mt-5" >
-            <img class="main_img" :src=main_src alt="">
+            <Flicking ref="flicking" :options="{ circular: true,}" :plugins="plugins" style="display:inline-block; width: 20em;">
+              <img class="panel" :src=main_img v-for="main_img in main_img_src" :key="main_img" alt="">
+            </Flicking>
           </div>
           <div class="col-md-7 align-self-center">
             <img class="main_text" :src=main_text alt="">
-            <!-- <div class="row">
-              <div class="col-md-12">
-                <span class="second_page">레터링 케이크의 비교와&nbsp;</span><span class="second_page"> 주문을&nbsp;</span> <span class="second_impect">편리</span><span class="second_page">하게 !</span>
-              </div>
-            </div> -->
           </div>
-          
         </div>
-      
       </div>
       
     </section>
     <section class="fullpage red">
-      <div>
-      <Flicking :options="{ align:'prev', circular: true,}" style="width: 30em">
-        <img class="panel" :src=third_img v-for="third_img in third_img_src" :key="third_img" alt="">
-      </Flicking>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+              <span> 친구, 연인 가까운 사람들과 소중한 순간을 함께 할 특별한 케이크를 만나보세요</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div> 화살표 들어갈 자리</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class=" col-md-5" style="display:inline-block">
+            android QR
+          </div>      
+          <div class="col-md-offset-2 col-md-5" style="display:inline-block">
+            IOS QR
+          </div>
+        </div>
       </div>
     </section>
     <section class="fullpage green">
@@ -60,30 +70,32 @@
 </template>
 
 <script>
-import Flicking from "@egjs/vue3-flicking";
+import Flicking from "@egjs/vue3-flicking"
+import { AutoPlay, } from "@egjs/flicking-plugins"
 import logo_src from './assets/image/damologo.png'
-import main_src from './assets/image/mainpage.png'
+import main_img00_src from './assets/image/mainpage.png'
 import main_text from './assets/image/main_text.png'
-import third_img01_src from './assets/image/detailpage.png'
-import third_img02_src from './assets/image/review.png'
-import third_img03_src from './assets/image/faq.png'
-import third_img04_src from './assets/image/dmpage.png'
+import main_img01_src from './assets/image/detailpage.png'
+import main_img02_src from './assets/image/review.png'
+import main_img03_src from './assets/image/faq.png'
+import main_img04_src from './assets/image/dmpage.png'
+
 export default {
   name: 'App',
+  components: {
+    Flicking : Flicking,
+  },
   data(){
     return{
+      plugins: [new AutoPlay({duration:900, direction:"NEXT", stopOnHover:false})],
       logo_src : logo_src,
-      main_src: main_src,
       main_text: main_text,
-      third_img_src: [third_img01_src, third_img02_src, third_img03_src, third_img04_src],
+      main_img_src: [main_img00_src,main_img01_src,main_img02_src,main_img03_src,main_img04_src],
       inMove: false,
       activeSection: 0,
       offsets: [],
       touchStartY: 0,
     }
-  },
-  components: {
-    Flicking : Flicking,
   },
   created() {
     this.$nextTick(function(){
@@ -104,6 +116,12 @@ export default {
     window.removeEventListener('touchmove', this.touchMove); // mobile devices
   },
   methods: {
+    prevFlick(){
+      this.$refs.flicking.prev();
+    },
+    nextFlick(){
+      this.$refs.flicking.next();
+    },
     calculateSectionOffsets() {
       let sections = document.getElementsByTagName('section');
       let length = sections.length;
@@ -208,6 +226,7 @@ body {
   overflow: hidden;
 }
 
+
 h2 {
   position: fixed;
 }
@@ -252,15 +271,7 @@ h1 {
 .second_image_container{
   display: flex;
 }
-.main_img{
-  width: 19em;
-  display: inline-block;
-  margin-left: 2em;
-  margin-right: 4em;
-  vertical-align: center;
-  border-radius: 2.1rem;
-  box-shadow: 2px 2px 2px rgb(75, 56, 56);
-}
+
 .main_text{
   width:40em;
 }
@@ -293,6 +304,10 @@ h1 {
   display: inline-block;
   margin-left: 2em;
   margin-right: 4em;
+  vertical-align: center;
+  border-radius: 2.1rem;
+  border: #000;
+  box-shadow: 2px 2px 2px rgb(75, 56, 56);
 }
 span{
   font-size: 1.8em;
@@ -301,6 +316,44 @@ span{
 p {
   font-size: 1em;
 }
+.arrow {
+	display: inline-block;
+  
+	top: 50%;
+	width: 3vmin;
+	height: 3vmin;
+	background: transparent;
+	border-top: 1vmin solid white;
+  border-bottom: 0vmin;
+  border-left: 0vmin;
+	border-right: 1vmin solid white;
+	box-shadow: 0 0 0 lightgray;
+	transition: all 200ms ease;
+}
+.arrow :before{
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-40%,-60%) rotate(45deg);
+		width: 200%;
+		height: 200%;
+}
+button.arrow:hover{
+		border-color: orange;
+		box-shadow: 0.5vmin -0.5vmin 0 white;
+}
+.left {
+		left: 0;
+		transform: translate3d(0,-50%,0) rotate(-135deg);
+}
+
+.right {
+		right: 0;
+		transform: translate3d(0,-50%,0) rotate(45deg);
+}
+	
+	
 
 .fullpage a {
   text-decoration: none;

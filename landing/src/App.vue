@@ -1,39 +1,33 @@
 <template>
-<!-- <div class="logo_frame">
-  <img class="logo" :src="tittle_img"/>
-</div>
-<div class="scene" >
-  <h1 class="tittle">Dazzling Moment</h1>
-</div> -->
-
 <div id="app">
-    <div class="sections-menu">
-      <span
-         class="menu-point"
-         v-bind:class="{active: activeSection == index}"
-         v-on:click="scrollToSection(index)"
-         v-for="(offset, index) in offsets" :key="index">
-      </span>
-    </div>
+  <div style="position:fixed; z-index:1; margin-left:2em; margin-top:2em;">
+      <img v-if="activeSection == 0 || activeSection == 3" :src=damologo3 >
+      <img v-if="activeSection == 1 || activeSection == 2" :src=damologo2 alt="">
+  </div>
+  <div class="sections-menu">
+    <span
+      class="menu-point"
+      v-bind:class="{active: activeSection == index}"
+      v-on:click="scrollToSection(index)"
+      v-for="(offset, index) in offsets" :key="index">
+    </span>
+  </div>
     <section class="fullpage blue">
       <div class="container">
-        <img class="logo" :src=logo_src alt="">
         <div class="content">
-          <span style="color: #fff; text-shadow: 4px 3px 2px #000000"> "소중한 사람과 빛나는 시간을"</span>
+          <span class="logo_text" style="color: #fff; text-shadow: 4px 3px 2px #f79b88"> "소중한 사람과 빛나는 시간을"</span>
         </div>
-        <!-- <h1 class="tittle">DAMO</h1>
-        <span class="sub_tittle">:</span> <span style="color:#f93f5b">Da</span><span>zzling</span> <span style="color:#f93f5b">Mo</span><span>ments</span> -->
       </div>
     </section>
     <section class="fullpage black">
       <div class="container">
         <div class="row " style="margin-left:24px;">
-          <div class="col-md-5 mt-5" >
+          <div class="col-sm-5 mt-5" >
             <Flicking ref="flicking" :options="{ circular: true,}" :plugins="plugins" style="display:inline-block; width: 20em;">
               <img class="panel" :src=main_img v-for="main_img in main_img_src" :key="main_img" alt="">
             </Flicking>
           </div>
-          <div class="col-md-7 align-self-center">
+          <div class="col-sm-7 ">
             <img class="main_text" :src=main_text alt="">
           </div>
         </div>
@@ -41,30 +35,74 @@
       
     </section>
     <section class="fullpage red">
-      <div class="container">
-        <div class="row">
+      <div class="container" style="text-align:center">
+        <div class="row align-items-center">
           <div class="col-md-12">
-              <span> 친구, 연인 가까운 사람들과 소중한 순간을 함께 할 특별한 케이크를 만나보세요</span>
+              <span class="store_text"> 친구, 연인 가까운 사람들과 소중한 순간을 함께 할 특별한 케이크를 만나보세요</span>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div> 화살표 들어갈 자리</div>
+        <div class="row" >
+          
+          <div class="col-md-offset-5 col-md-2">
+            <img class="arrow" :src=arrow_img alt="">
           </div>
+          
         </div>
         <div class="row">
           <div class=" col-md-5" style="display:inline-block">
-            android QR
+            <img class="store_img" :src=playstore_img alt="">
           </div>      
           <div class="col-md-offset-2 col-md-5" style="display:inline-block">
-            IOS QR
+            <img class="store_img" :src=appstore_img alt="" >
           </div>
         </div>
       </div>
     </section>
     <section class="fullpage green">
-      <h1>Section 4</h1>
-      <p>Tutorial <a href="https://webdeasy.de/en/programming-vue-js-fullpage-scroll/?referer=cp-NVOEBL" target="_blank">here</a></p>
+      <div class="container" style="color:#000">
+        <div class="row">
+          <div class="col-md-5">
+            <span>(주)사비트</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <span>부산광역시 ~~</span>
+          </div>
+        </div>
+        <br><br>
+        <div class="row">
+          <div class="col-md-5">
+            <span>사업자등록번호: </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <span>통신판매업: </span>
+          </div>
+        </div>
+        <br><br>
+        <div class="row">
+          <div class="col-md-5">
+            <span> 문의 및 판매자 입점 신청 </span>
+            <img :src=send alt=""> &nbsp;
+            <span> 4bit.damo@gmail.com </span>
+          </div>
+          <div class="col-md-5">    
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-5">
+            <span style="color:#000000"> 고객문의 </span>
+            <img :src=phone alt=""> &nbsp;
+            <span style="color:#000000"> 010-1234-4567 </span>
+          </div>
+          <div class="col-md-5">
+            
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -79,6 +117,13 @@ import main_img01_src from './assets/image/detailpage.png'
 import main_img02_src from './assets/image/review.png'
 import main_img03_src from './assets/image/faq.png'
 import main_img04_src from './assets/image/dmpage.png'
+import arrow_img_src from './assets/image/party.svg'
+import playstore_img_src from './assets/image/playstore.svg'
+import appstore_img_src from './assets/image/appstore.svg'
+import damologo2 from './assets/image/damologo2.svg'
+import damologo3 from './assets/image/damologo3.svg'
+import phone from './assets/image/phone.svg'
+import send from './assets/image/send.svg'
 
 export default {
   name: 'App',
@@ -87,7 +132,14 @@ export default {
   },
   data(){
     return{
-      plugins: [new AutoPlay({duration:900, direction:"NEXT", stopOnHover:false})],
+      phone: phone,
+      send: send,
+      damologo2: damologo2,
+      damologo3: damologo3,
+      playstore_img: playstore_img_src,
+      appstore_img: appstore_img_src,
+      arrow_img: arrow_img_src,
+      plugins: [new AutoPlay({duration:1000, direction:"NEXT", stopOnHover:false})],
       logo_src : logo_src,
       main_text: main_text,
       main_img_src: [main_img00_src,main_img01_src,main_img02_src,main_img03_src,main_img04_src],
@@ -214,16 +266,18 @@ export default {
     font-style: normal;
 }
 @font-face {
-    font-family: 'SBAggroB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-family: 'OTWelcomeBA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeBA.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
+
 body {
   margin: 0;
   color: #FFF;
   font-family: Helvetica, arial, sans-serif;
   overflow: hidden;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
 }
 
 
@@ -255,6 +309,9 @@ h1 {
   margin-right: 0;
   
 }
+.logo_text{
+  font-size: 2em;
+}
 .cotainer{
   display: flex;
 }
@@ -270,37 +327,11 @@ h1 {
 }
 .second_image_container{
   display: flex;
-}
-
-.main_text{
-  width:40em;
-}
-.sub_tittle{
-  font-size: 2em;
-  padding: 0 1rem;
-}
-.second_page{
-  word-break:keep-all;
-  display: inline-block;
-  font-family: "SBAggroB";
-  font-size: 3.7em;
-  color: #FFF;
-  text-shadow: 2px 2px 1px #f79b5d
-}
-.second_impect{
-  word-break:keep-all;
-  font-family: "SBAggroB";
-  font-size: 3.7em;
-  display: inline;
-  color: #f79b5d;
-  text-emphasis-style: dot;
-  text-emphasis-position: over left;
-  -webkit-text-emphasis-style: dot;
-  -webkit-text-emphasis-position: over;
-  text-shadow: 2px 2px 1px #000000;
+  margin-bottom: -4em;
 }
 .panel{
   width: 19em;
+  height: 38em;
   display: inline-block;
   margin-left: 2em;
   margin-right: 4em;
@@ -309,51 +340,17 @@ h1 {
   border: #000;
   box-shadow: 2px 2px 2px rgb(75, 56, 56);
 }
-span{
-  font-size: 1.8em;
-  color: #f79b5d;
+.main_text{
+  width:40em;
+  margin-left: -2em;
+}
+.sub_tittle{
+  font-size: 2em;
+  padding: 0 1rem;
 }
 p {
   font-size: 1em;
-}
-.arrow {
-	display: inline-block;
-  
-	top: 50%;
-	width: 3vmin;
-	height: 3vmin;
-	background: transparent;
-	border-top: 1vmin solid white;
-  border-bottom: 0vmin;
-  border-left: 0vmin;
-	border-right: 1vmin solid white;
-	box-shadow: 0 0 0 lightgray;
-	transition: all 200ms ease;
-}
-.arrow :before{
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-40%,-60%) rotate(45deg);
-		width: 200%;
-		height: 200%;
-}
-button.arrow:hover{
-		border-color: orange;
-		box-shadow: 0.5vmin -0.5vmin 0 white;
-}
-.left {
-		left: 0;
-		transform: translate3d(0,-50%,0) rotate(-135deg);
-}
-
-.right {
-		right: 0;
-		transform: translate3d(0,-50%,0) rotate(45deg);
-}
-	
-	
+}	
 
 .fullpage a {
   text-decoration: none;
@@ -376,7 +373,7 @@ section.black {
 
 .blue {
    position: relative;
-   color: #f93f5b;
+   
 }
 .blue:after{  
   content : "";
@@ -384,7 +381,7 @@ section.black {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url('./assets/image/cake6.jpg');
+  background-image: url('./assets/image/cake12.jpg');
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -392,8 +389,24 @@ section.black {
   z-index: -10;
 }
 
+.arrow{
+  margin-top: 1em;
+  margin-bottom: 2em;
+  width: 10em;  
+}
+
+.store_img{
+  width: 20em;
+}
+
+.store_text{
+  font-family: 'OTWelcomeBA';
+  font-size: 3em;
+  word-break: keep-all;
+}
+
 .green {
-  background-color: #68c368;
+  background-color: #ffffff;
 }
 
 h1.black {
@@ -426,16 +439,26 @@ h1.black {
   transform: scale(1.5);
 }
 
- @media screen and (max-width: 992px) {
+ @media screen and (max-width: 770px) {
   h1 {
     font-size: 2.5em;
   }
-  .main_img{
-    width: 15em;
+  .panel{
+    margin-top: 5em;
+    height: 34em;
   }
   .main_text{
     margin-left: 2em;
     width: 16em;
+  }
+  .store_text{
+    font-size: 2em;
+  }
+  .store_img{
+    width:14em;
+  }
+  .arrow{
+    width:6em;
   }
 } 
 

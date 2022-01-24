@@ -383,6 +383,7 @@ section.black {
   left: 0;
   background-image: url('./assets/image/cake12.jpg');
   background-size: cover;
+  background-position: 50% 50%;
   width: 100%;
   height: 100%;
   opacity : 0.79;

@@ -1,8 +1,8 @@
 <template>
 <div id="app">
-  <div style="position:fixed; z-index:1; margin-left:2em; margin-top:2em;">
-      <img v-if="activeSection == 0 || activeSection == 3" :src=damologo3 >
-      <img v-if="activeSection == 1 || activeSection == 2" :src=damologo2 alt="">
+  <div class="nav_logo" >
+      <img v-if="activeSection == 0 || activeSection == 3" :src=damologo3 style="width:100%;">
+      <img v-if="activeSection == 1 || activeSection == 2" :src=damologo2 style="width:100%;">
   </div>
   <div class="sections-menu">
     <span
@@ -14,17 +14,17 @@
   </div>
     <section class="fullpage blue">
       <div class="container">
-        <div class="content">
-          <span class="logo_text" style="color: #fff; text-shadow: 4px 3px 2px #f79b88"> "소중한 사람과 빛나는 시간을"</span>
+        <div class="content" style="margin-right:3em;">
+          <span class="logo_text" style="color: #fff; text-shadow: 4px 3px 2px #f79b88"> "소중한 사람과 빛나는 시간을" </span>
         </div>
       </div>
     </section>
     <section class="fullpage black">
       <div class="container">
-        <div class="row " style="margin-left:24px;">
-          <div class="col-sm-5 mt-5" >
-            <Flicking ref="flicking" :options="{ circular: true,}" :plugins="plugins" style="display:inline-block; width: 20em;">
-              <img class="panel" :src=main_img v-for="main_img in main_img_src" :key="main_img" alt="">
+        <div class="row second-row" style="margin-left:24px;">
+          <div class="col-sm-5" >
+            <Flicking class="flicking" ref="flicking" :options="{ circular: true, horizontal:true}" :plugins="plugins">
+              <img class="panel" :src=main_img v-for="main_img in main_img_src" :key="main_img">
             </Flicking>
           </div>
           <div class="col-sm-7 ">
@@ -49,10 +49,10 @@
           
         </div>
         <div class="row">
-          <div class=" col-md-5" style="display:inline-block">
+          <div class=" col-md-5">
             <img class="store_img" :src=playstore_img alt="">
           </div>      
-          <div class="col-md-offset-2 col-md-5" style="display:inline-block">
+          <div class="col-md-offset-2 col-md-5">
             <img class="store_img" :src=appstore_img alt="" >
           </div>
         </div>
@@ -168,12 +168,6 @@ export default {
     window.removeEventListener('touchmove', this.touchMove); // mobile devices
   },
   methods: {
-    prevFlick(){
-      this.$refs.flicking.prev();
-    },
-    nextFlick(){
-      this.$refs.flicking.next();
-    },
     calculateSectionOffsets() {
       let sections = document.getElementsByTagName('section');
       let length = sections.length;
@@ -280,6 +274,13 @@ body {
   -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
 }
 
+.nav_logo{
+  width: 6em;
+  position:fixed;
+  z-index:1; 
+  margin-left:2em; 
+  margin-top:2em;
+}
 
 h2 {
   position: fixed;
@@ -312,9 +313,7 @@ h1 {
 .logo_text{
   font-size: 2em;
 }
-.cotainer{
-  display: flex;
-}
+
 .content{
   word-break: keep-all;
   display: inline-block;
@@ -325,14 +324,33 @@ h1 {
   transform: scale(1.3);
   
 }
+.flicking-viewport{
+  width:20em;
+  position: relative;
+  overflow: hidden;
+}
+.flicking-camera{
+  width:100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  z-index: 1;
+}
 .second_image_container{
   display: flex;
   margin-bottom: -4em;
 }
+.flicking{
+  display:inline-block;
+  width:20em;
+  height: auto;
+}
 .panel{
   width: 19em;
   height: 38em;
-  display: inline-block;
   margin-left: 2em;
   margin-right: 4em;
   vertical-align: center;
@@ -441,15 +459,19 @@ h1.black {
 }
 
  @media screen and (max-width: 770px) {
+  .nav_logo{
+    width: 4em;
+  }
   h1 {
     font-size: 2.5em;
   }
   .panel{
     margin-top: 5em;
-    height: 34em;
+    height: 36em;
   }
   .main_text{
     margin-left: 2em;
+    margin-top: -1em;
     width: 16em;
   }
   .store_text{
@@ -460,6 +482,9 @@ h1.black {
   }
   .arrow{
     width:6em;
+  }
+  .second-row{
+  margin-top:-9em;
   }
 } 
 

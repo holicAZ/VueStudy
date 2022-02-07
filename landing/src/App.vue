@@ -22,13 +22,19 @@
     <section class="fullpage black">
       <div class="container">
         <div class="row second-row" style="margin-left:24px;">
-          <div class="col-sm-5" >
-            <Flicking class="flicking" ref="flicking" :options="{ circular: true, horizontal:true}" :plugins="plugins">
-              <img class="panel" :src=main_img v-for="main_img in main_img_src" :key="main_img">
+          <div class="col-sm-5 wrap">
+            <Flicking 
+            :viewportTag="'div'" 
+            :cameraTag="'div'" 
+            :options="{circular: true, autoResize:true, gap: 5}" 
+            :plugins="plugins">              
+              <div class="panel" v-for="main_img in main_img_src" :key="main_img" >
+                <img :src="main_img" style="width: 100%; height: 100%;">
+              </div>
             </Flicking>
           </div>
           <div class="col-sm-7 ">
-            <img class="main_text" :src=main_text alt="">
+            <img class="main_text" :src="main_text" alt="">
           </div>
         </div>
       </div>
@@ -109,10 +115,11 @@
 
 <script>
 import Flicking from "@egjs/vue3-flicking"
-import { AutoPlay, } from "@egjs/flicking-plugins"
+
+import {  Fade, AutoPlay } from "@egjs/flicking-plugins"
 import logo_src from './assets/image/damologo.png'
-import main_img00_src from './assets/image/mainpage.png'
 import main_text from './assets/image/main_text.png'
+import main_img00_src from './assets/image/mainpage.png'
 import main_img01_src from './assets/image/detailpage.png'
 import main_img02_src from './assets/image/review.png'
 import main_img03_src from './assets/image/faq.png'
@@ -139,10 +146,10 @@ export default {
       playstore_img: playstore_img_src,
       appstore_img: appstore_img_src,
       arrow_img: arrow_img_src,
-      plugins: [new AutoPlay({duration:1000, direction:"NEXT", stopOnHover:false})],
+      plugins: [ new AutoPlay({duration:2000, direction:"NEXT", stopOnHover:false}), new Fade() ],
       logo_src : logo_src,
       main_text: main_text,
-      main_img_src: [main_img00_src,main_img01_src,main_img02_src,main_img03_src,main_img04_src],
+      main_img_src: [main_img00_src, main_img01_src, main_img02_src, main_img03_src, main_img04_src],
       inMove: false,
       activeSection: 0,
       offsets: [],
@@ -167,6 +174,7 @@ export default {
     window.removeEventListener('touchstart', this.touchStart); // mobile devices
     window.removeEventListener('touchmove', this.touchMove); // mobile devices
   },
+  
   methods: {
     calculateSectionOffsets() {
       let sections = document.getElementsByTagName('section');
@@ -267,6 +275,7 @@ export default {
 }
 
 body {
+  
   margin: 0;
   color: #FFF;
   font-family: Helvetica, arial, sans-serif;
@@ -324,13 +333,20 @@ h1 {
   transform: scale(1.3);
   
 }
-.flicking-viewport{
-  width:20em;
-  position: relative;
+.wrap{
+  width: 20em;
+  height: 550px;
   overflow: hidden;
 }
+.flicking-viewport{
+  position: relative;
+  overflow: hidden;
+  width: 20em;
+  height: 520px;
+}
+
 .flicking-camera{
-  width:100%;
+  width: 100%;
   height: 100%;
   display: flex;
   position: relative;
@@ -340,19 +356,12 @@ h1 {
   z-index: 1;
 }
 .second_image_container{
-  display: flex;
+  
   margin-bottom: -4em;
 }
-.flicking{
-  display:inline-block;
-  width:20em;
-  height: auto;
-}
-.panel{
-  width: 19em;
-  height: 38em;
-  margin-left: 2em;
-  margin-right: 4em;
+.panel{ 
+  width: 100%;
+  height: 100%;
   vertical-align: center;
   border-radius: 2.1rem;
   border: #000;
@@ -360,7 +369,7 @@ h1 {
 }
 .main_text{
   width:40em;
-  margin-left: -2em;
+  margin-left: 3em;
 }
 .sub_tittle{
   font-size: 2em;
@@ -458,18 +467,21 @@ h1.black {
   transform: scale(1.5);
 }
 
- @media screen and (max-width: 770px) {
+ @media screen and (max-width: 1000px) {
   .nav_logo{
     width: 4em;
   }
   h1 {
     font-size: 2.5em;
   }
-  .panel{
-    margin-top: 5em;
-    height: 36em;
+  .second-row{
+    padding-top: 7em;
   }
-  .main_text{
+  
+  .panel{
+    height: 500px;
+  }
+  .main_text{ 
     margin-left: 2em;
     margin-top: -1em;
     width: 16em;
